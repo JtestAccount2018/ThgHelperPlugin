@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>org.uproc.ThgHelperPlugin</id>
+    <name>ThgCodeStyleHelper</name>
+    <vendor email="iloveheavymetal@mail.ru" url="">UladzimirPratsevich</vendor>
+
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="MethodArgumentsFinalizer" class="MethodArgumentsFinalizer" text="argumentFinalizer"
+          description="add final modifier to all method signatures in current class">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl F"/>
+        </action>
+        <action id="ExplicitTypeToVariableReplacer" class="ExplicitTypeToVariableReplacer" text="ExplicitTypeToVar"
+          description="replace explicit type declaration of local variable to var type">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl R"/>
+        </action>
+        <action id="CodeFragmentHighlighter" class="CodeFragmentHighlighter" text="HighLight"
+          description="Hightlight element and references at the carret">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH" second-keystroke="ctrl H"/>
+        </action>
+    </actions>
+</idea-plugin>

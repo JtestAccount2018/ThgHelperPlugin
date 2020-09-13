@@ -1,0 +1,25 @@
+plugins {
+    id 'org.jetbrains.intellij' version '0.4.22'
+}
+
+group 'org.uproc'
+version '1.0-SNAPSHOT'
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2019.3.2'
+    plugins 'java'
+}
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
+
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+    implementation('org.jetbrains:annotations:19.0.0')
+}
