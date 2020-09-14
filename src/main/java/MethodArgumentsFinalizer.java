@@ -9,7 +9,9 @@ import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiModifierList;
 import com.intellij.psi.PsiParameter;
 import com.intellij.psi.PsiParameterList;
+import com.intellij.psi.util.PsiTreeUtil;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,8 +28,8 @@ public class MethodArgumentsFinalizer extends AnAction {
       @Override
       public void run() {
         Arrays.stream(classes)
-            .map(PsiClass::getMethods)
-            .flatMap(Arrays::stream)
+            .map(psiClass -> PsiTreeUtil.collectElementsOfType(psiClass, PsiMethod.class))
+            .flatMap(Collection::stream)
             .filter(psiMethod -> !defaultMethodNames.contains(psiMethod.getName()))
             .map(PsiMethod::getParameterList)
             .map(PsiParameterList::getParameters)
