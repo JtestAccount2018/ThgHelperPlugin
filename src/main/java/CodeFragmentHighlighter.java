@@ -65,7 +65,7 @@ public class CodeFragmentHighlighter extends AnAction {
     List<PsiElement> psiElements = psiReferences.stream().map(psiReference -> (PsiElement) psiReference).collect(Collectors.toList());
     psiElements.add(psiElement);
     MarkupModel markupModel = editor.getMarkupModel();
-    TextAttributes attributes = new TextAttributes(null, null, colours.get(getColorNumber()), EffectType.BOXED, Font.PLAIN);
+    TextAttributes attributes = new TextAttributes(null, colours.get(getColorNumber()), JBColor.WHITE, EffectType.BOLD_LINE_UNDERSCORE, Font.PLAIN);
     List<@NotNull RangeHighlighter> rangeHighlighters = psiElements.stream()
         .filter(element -> psiFile.equals(element.getContainingFile()))
         .map(element -> markupModel.addRangeHighlighter(element.getTextRange().getStartOffset(), element.getTextRange().getEndOffset(), 1, attributes,

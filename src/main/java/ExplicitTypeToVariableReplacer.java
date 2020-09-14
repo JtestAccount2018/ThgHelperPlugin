@@ -9,16 +9,15 @@ import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.ui.MessageType;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiCodeBlock;
 import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiLocalVariable;
-import com.intellij.psi.PsiMethod;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.Collection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,14 +35,8 @@ public class ExplicitTypeToVariableReplacer extends AnAction {
         PsiJavaFile psiJavaFile = (PsiJavaFile) file;
         @NotNull PsiClass[] classes = psiJavaFile.getClasses();
         Arrays.stream(classes)
-            .map(PsiClass::getMethods)
-            .flatMap(Arrays::stream)
-            .map(PsiMethod::getBody)
-            .filter(Objects::nonNull)
-            .map(PsiCodeBlock::getChildren)
-            .flatMap(Arrays::stream)
-            .filter(psiElement -> psiElement instanceof PsiDeclarationStatement)
-            .map(psiElement -> (PsiDeclarationStatement) psiElement)
+            .map(psiClass -> PsiTreeUtil.collectElementsOfType(psiClass, PsiDeclarationStatement.class))
+            .flatMap(Collection::stream)
             .map(PsiDeclarationStatement::getDeclaredElements)
             .flatMap(Arrays::stream)
             .filter(psiElement -> psiElement instanceof PsiLocalVariable)
